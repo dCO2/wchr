@@ -1,8 +1,5 @@
 name: Python Script Workflow
 
-environment:
-  name: production
-
 on:
   schedule:
   - cron: "30 18 * * *"
@@ -26,6 +23,9 @@ jobs:
         uses: py-actions/py-dependency-install@v2
         with:
           path: "requirements.txt"
+
+    environment:
+      name: production
 
       - name: Execute Python script # Run the app.py
         env:
