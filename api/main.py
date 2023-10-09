@@ -1,6 +1,6 @@
 import requests
 import json
-from .config import config
+from config import config
 from flask import Flask
 from confluent_kafka.schema_registry import SchemaRegistryClient
 from confluent_kafka.serialization import StringSerializer
