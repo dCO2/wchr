@@ -1,13 +1,10 @@
 import requests
 import json
 from config import config
-from flask import Flask
 from confluent_kafka.schema_registry import SchemaRegistryClient
 from confluent_kafka.serialization import StringSerializer
 from confluent_kafka.schema_registry.avro import AvroSerializer
 from confluent_kafka.serializing_producer import SerializingProducer
-
-app = Flask(__name__)
 
 def fetch_playlist_items_page(google_api_key, youtube_playlist_id, page_token):
 	response = requests.get("https://youtube.googleapis.com/youtube/v3/playlistItems", params={
@@ -65,7 +62,6 @@ def summarize_video(video):
 def on_delivery(err, record):
 	pass
 
-@app.route("/")
 def main():
 	google_api_key = config["google_api_key"]
 	youtube_playlist_id = config["youtube_playlist_id"]
@@ -102,6 +98,5 @@ def main():
 	producer.flush()
 	return f"<code><b>WCHR</b> is watching <a href=\"https://www.youtube.com/playlist?list={youtube_playlist_id}\">https://www.youtube.com/playlist?list={youtube_playlist_id}</a> for changes.<br>Alerts are sent to the <b>wchr</b> Telegram bot.</code>"
 
-@app.route("/about")
-def about():
-	return "wchr (pronounced watcher) is a reactive data streaming app"
+if __name__ == "__main__":
+	main()
