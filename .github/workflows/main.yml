@@ -24,9 +24,6 @@ jobs:
         with:
           path: "requirements.txt"
 
-    environment:
-      name: production
-
       - name: Execute Python script # Run the app.py
         env:
           SASL_USERNAME: ${{secrets.SASL_USERNAME}}
