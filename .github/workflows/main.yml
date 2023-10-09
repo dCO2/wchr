@@ -1,0 +1,36 @@
+name: Python Script Workflow
+
+environment:
+  name: production
+
+on:
+  schedule:
+  - cron: "40 17 * * *"
+  
+  workflow_dispatch:
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository content
+        uses: actions/checkout@v2 # Checkout the repository content to github runner.
+
+      - name: Setup Python Version
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9.6
+
+      - name: Install Python dependencies
+        uses: py-actions/py-dependency-install@v2
+        with:
+          path: "requirements.txt"
+
+      - name: Execute Python script # Run the app.py
+        env:
+          SASL_USERNAME: ${{secrets.SASL_USERNAME}}
+          SASL_PASSWORD: ${{secrets.SASL_PASSWORD}}
+          USER_INFO: ${{secrets.USER_INFO}}
+        
+        run: python api/main.py
