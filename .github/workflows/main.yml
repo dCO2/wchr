@@ -26,8 +26,9 @@ jobs:
 
       - name: Execute Python script # Run the app.py
         env:
-          SASL_USERNAME: ${{secrets.SASL_USERNAME}}
-          SASL_PASSWORD: ${{secrets.SASL_PASSWORD}}
-          USER_INFO: ${{secrets.USER_INFO}}
+          GOOGLE_API_KEY: ${{vars.GOOGLE_API_KEY}}
+          SASL_USERNAME: ${{vars.SASL_USERNAME}}
+          SASL_PASSWORD: ${{vars.SASL_PASSWORD}}
+          USER_INFO: ${{vars.USER_INFO}}
         
         run: python api/main.py
